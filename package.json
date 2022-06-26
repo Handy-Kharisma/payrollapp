@@ -7,7 +7,10 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "emu": "/home/handykharisma/Android/Sdk/emulator/emulator -avd Pixel -netdelay none -netspeed full",
+    "emulator": "C:/Users/handy/AppData/Local/Android/Sdk/emulator/emulator.exe -avd Pixel -netdelay none -netspeed full",
+    "emulatorr": "C:/Users/handy/AppData/Local/Android/Sdk/emulator/emulator.exe -avd Pixel4 -netdelay none -netspeed full"
   },
   "dependencies": {
     "react": "18.0.0",
