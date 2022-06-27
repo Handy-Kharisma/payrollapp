@@ -7,105 +7,117 @@
  */
 
 import React from 'react';
-import type {Node} from 'react';
+// import type {Node} from 'react';
 import {
   SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
   View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
 } from 'react-native';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import GamingSVG from './src/assets/images/gaming.svg';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import Menu from './src/pages/Menu';
+import Login from './src/pages/Login';
+import DetailRecord from './src/pages/DetailRecord';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+const Stack = createNativeStackNavigator();
 
-const Section = ({children, title}): Node => {
-  const isDarkMode = useColorScheme() === 'dark';
+const App = () => {
   return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Navigator
+          component={Login}
+          name="Login"
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          component={Menu}
+          name="Menu"
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          component={DetailRecord}
+          name="DetailRecord"
+          options={{headerShown: false}}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
 
-const App: () => Node = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
+const Main = ({navigation}) => {
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.js</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.containerTitle}>
+        <Text style={styles.textTitle}>GAMEON</Text>
+      </View>
+      <View style={styles.containerSVG}>
+        <GamingSVG width={300} height={300} style={styles.imageSVG} />
+      </View>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate('Menu')}>
+        <Text style={styles.text}>Let's Begin</Text>
+        <MaterialIcons name="arrow-forward-ios" size={22} color="#ffffff" />
+      </TouchableOpacity>
     </SafeAreaView>
   );
 };
 
+// const Home = () => {
+//   return (
+//     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+//       <Text>Home Screen</Text>
+//     </View>
+//   );
+// };
+
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#ffffff',
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
+  containerTitle: {
+    marginTop: 20,
   },
-  sectionDescription: {
-    marginTop: 8,
+  textTitle: {
+    fontSize: 30,
+    fontWeight: 'bold',
+    color: '#20315f',
+    fontFamily: 'Inter-Bold',
+  },
+  containerSVG: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  imageSVG: {
+    transform: [
+      {
+        rotate: '-15deg',
+      },
+    ],
+  },
+  button: {
+    backgroundColor: '#AD40AF',
+    padding: 20,
+    width: '90%',
+    borderRadius: 5,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 50,
+  },
+  text: {
+    fontWeight: 'bold',
     fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
+    color: '#ffffff',
+    fontFamily: 'Roboto-MediumItalic',
   },
 });
 
